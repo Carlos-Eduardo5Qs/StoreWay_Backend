@@ -47,3 +47,32 @@ CREATE TABLE photoAvaliation (
   image_filename varchar(255),
   FOREIGN KEY (avaliation_id) REFERENCES avaliation(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+-- Logo a baixo estão as novas tabelas que ainda estou analizando para implementar em breve.
+
+CREATE TABLE review_response (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  avaliation_id INT NOT NULL,
+  user_id INT NOT NULL,
+  response TEXT NOT NULL,
+  FOREIGN KEY (avaliation_id) REFERENCES avaliation(id),
+  FOREIGN KEY (user_id) REFERENCES user_profile(id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE avaliation_reactions (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  avaliation_id INT NOT NULL,
+  user_id INT NOT NULL,
+  reaction ENUM('like', 'dislike') NOT NULL,
+  FOREIGN KEY (avaliation_id) REFERENCES avaliation(id),
+  FOREIGN KEY (user_id) REFERENCES user_profile(id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+CREATE TABLE response_reactions (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  response_id INT NOT NULL,
+  user_id INT NOT NULL,
+  reaction ENUM('like', 'dislike') NOT NULL,
+  FOREIGN KEY (response_id) REFERENCES review_response(id),
+  FOREIGN KEY (user_id) REFERENCES user_profile(id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
