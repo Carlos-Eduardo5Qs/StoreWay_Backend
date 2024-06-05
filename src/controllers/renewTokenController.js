@@ -8,8 +8,8 @@ exports.renew = (req, res) => {
 
   try {
     const decoded = jwt.verify(refreshToken, process.env.SECRET_KEY);
-    const newAccessToken = jwt.sign({ id: decoded.id }, process.env.SECRET_KEY, { expiresIn: 300 });
-    const newRefreshToken = jwt.sign({ id: decoded.id }, process.env.SECRET_KEY, { expiresIn: 900 });
+    const newAccessToken = jwt.sign({ id: decoded.id }, process.env.SECRET_KEY, { expiresIn: 900 });
+    const newRefreshToken = jwt.sign({ id: decoded.id }, process.env.SECRET_KEY, { expiresIn: 1200 });
 
     res.status(200).json({
       data: {
