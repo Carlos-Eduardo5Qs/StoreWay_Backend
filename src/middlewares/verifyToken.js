@@ -10,7 +10,7 @@ function verifyToken(req, res, next) {
   }
 
   try {
-    const decoded = jwt.verify(authorization, process.env.SECRET_KEY, { ignoreExpiration: true });
+    const decoded = jwt.verify(authorization, process.env.SECRET_KEY);
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Invalid token.' });

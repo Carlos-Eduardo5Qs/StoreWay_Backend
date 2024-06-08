@@ -9,7 +9,7 @@ exports.assessment = async (req, res) => {
   } = req.body;
 
   const { authorization } = req.headers;
-  const decoded = jwt.verify(authorization, process.env.SECRET_KEY, { ignoreExpiration: true });
+  const decoded = jwt.verify(authorization, process.env.SECRET_KEY);
   const userId = decoded.id;
 
   if (!productId || !text || !userId) {
@@ -24,5 +24,5 @@ exports.assessment = async (req, res) => {
     return res.status(500).json({ data: { message: 'Internal Server Error.' } });
   }
 
-  res.status(200).json({ data: { message: 'Okay.' } });
+  res.status(200).json({ data: { message: 'Comment created' } });
 };

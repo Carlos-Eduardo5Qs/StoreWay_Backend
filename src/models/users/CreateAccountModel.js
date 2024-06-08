@@ -3,7 +3,7 @@ const Database = require('../../config/Database');
 function RegisterAccount(account) {
   Database.call(this);
 
-  this.account = account;
+  this.account = account.map((value) => (value !== undefined ? value : null));
 
   this.init();
 }

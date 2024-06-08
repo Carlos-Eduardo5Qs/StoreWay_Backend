@@ -10,7 +10,7 @@ async function verify(req, res, next) {
   if (!authorization) return res.status(401).json({ data: { message: 'Authorization token not provided.' } });
 
   try {
-    const decodedToken = jwt.verify(authorization, process.env.SECRET_KEY, { ignoreExpiration: true });
+    const decodedToken = jwt.verify(authorization, process.env.SECRET_KEY);
     const userId = decodedToken.id;
 
     const verifyAuthorizarionModel = new VerifyAuthorizationModel(userId);
