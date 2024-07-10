@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    image: backshophub-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app/
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=Ga5896aSDasF
+      - MYSQL_DATABASE=Backshophub_Database
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+volumes:
+  db-data:
