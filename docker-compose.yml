@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "${SERVER_PORT}:3000"
     volumes:
       - ./:/app/
     environment:
@@ -16,8 +16,8 @@ services:
   db:
     image: mysql:5.7
     environment:
-      - MYSQL_ROOT_PASSWORD=Ga5896aSDasF
-      - MYSQL_DATABASE=Backshophub_Database
+      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_DATABASE=${DATABASE_NAME}
     volumes:
       - db-data:/var/lib/mysql
     ports:
