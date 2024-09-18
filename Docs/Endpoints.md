@@ -387,5 +387,5 @@ Se você precisar de mais detalhes sobre como utilizar esses endpoints, encontra
 - [Guia de Configurações do Ambiente sem Docker Compose](../enviromentConfig/defaultEnvironmentConfiguration.md) 
 - [Guia de Configurações do Ambiente com Docker Compose](../enviromentConfig/configWithDockerCompose.md)
 - [Endpoints](#endpoints)
-- [Autenticação do Usuário](./authentication)
+- [Autenticação do Usuário](./authentication.md)
 - [Contribuição](./contribution.md)
