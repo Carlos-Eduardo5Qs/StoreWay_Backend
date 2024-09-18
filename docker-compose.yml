@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    image: storeway
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${SERVER_PORT}:3000"
+    volumes:
+      - ./:/app/
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_DATABASE=${DATABASE_NAME}
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+volumes:
+  db-data:

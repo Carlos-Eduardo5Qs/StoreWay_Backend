@@ -1,11 +1,18 @@
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
+
 const CreateAssessments = require('../../services/productsAssessments/CreateAssessmentsService');
 
 exports.assessment = async (req, res) => {
   const {
-    productId, userId, text, stars,
+    productId, text, stars,
   } = req.body;
 
-  if (!productId || !userId || !text || !stars) {
+  const { authorization } = req.headers;
+  const decoded = jwt.verify(authorization, process.env.SECRET_KEY);
+  const userId = decoded.id;
+
+  if (!productId || !text || !userId) {
     return res.status(400).json({ data: { message: 'Unable to create an assessment.' } });
   }
 
@@ -17,5 +24,5 @@ exports.assessment = async (req, res) => {
     return res.status(500).json({ data: { message: 'Internal Server Error.' } });
   }
 
-  res.status(200).json({ data: { message: 'Okay.' } });
+  res.status(200).json({ data: { message: 'Comment created' } });
 };

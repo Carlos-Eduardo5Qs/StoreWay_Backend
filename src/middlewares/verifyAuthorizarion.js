@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
 
-const VerifyAuthorizarionModel = require('../models/users/verifyAuthorizarionModel');
+const VerifyAuthorizationModel = require('../models/users/verifyAuthorizarionModel');
 
 async function verify(req, res, next) {
   const { authorization } = req.headers;
@@ -13,7 +13,7 @@ async function verify(req, res, next) {
     const decodedToken = jwt.verify(authorization, process.env.SECRET_KEY);
     const userId = decodedToken.id;
 
-    const verifyAuthorizarionModel = new VerifyAuthorizarionModel(userId);
+    const verifyAuthorizarionModel = new VerifyAuthorizationModel(userId);
     const check = await verifyAuthorizarionModel.isAdm();
 
     if (!check) {

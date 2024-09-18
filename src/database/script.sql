@@ -1,6 +1,6 @@
-CREATE DATABASE BackShopHubAPI CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE StoreWay CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE DATABASE BackShopHubAPI;
+USE StoreWay;
 
 CREATE TABLE user_profile (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -35,6 +35,8 @@ CREATE TABLE avaliation (
   product_id INT NOT NULL,
   review TEXT,
   stars INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES user_profile(id),
   FOREIGN KEY (product_id) REFERENCES products(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
@@ -47,3 +49,16 @@ CREATE TABLE photoAvaliation (
   image_filename varchar(255),
   FOREIGN KEY (avaliation_id) REFERENCES avaliation(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+DELIMITER //
+
+CREATE TRIGGER update_avaliation_timestamp
+AFTER UPDATE ON photoAvaliation
+FOR EACH ROW
+BEGIN
+  UPDATE avaliation
+  SET updated_at = CURRENT_TIMESTAMP
+  WHERE id = NEW.avaliation_id;
+END //
+
+DELIMITER ;
