@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const createAccountRoute = require('../routes/users/createAccountRoute');
 const loginRoute = require('../routes/users/authRoute');
@@ -14,6 +15,7 @@ const updateAssessmentRoute = require('../routes/productsAssessments/updateAsses
 
 const app = express();
 
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
