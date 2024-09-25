@@ -156,9 +156,9 @@ Para entrar em contato diretamente, envie um e-mail para: carloseduardorm4@gmail
 ## Sumário
 
 - [Visão Geral](../README.md)
-- [Introdução](../introduction.md)
-- [Guia de Configurações do Ambiente sem Docker Compose](../enviromentConfig/defaultEnvironmentConfiguration.md) 
-- [Guia de Configurações do Ambiente com Docker Compose](../enviromentConfig/configWithDockerCompose.md)
-- [Endpoints](./endpoints)
-- [Autenticação do Usuário](./authentication)
+- [Introdução](./introduction.md)
+- [Guia de Configurações do Ambiente sem Docker Compose](./enviromentConfig/defaultEnvironmentConfiguration.md) 
+- [Guia de Configurações do Ambiente com Docker Compose](./enviromentConfig/configWithDockerCompose.md)
+- [Endpoints](./Endpoints.md)
+- [Autenticação do Usuário](./authentication.md)
 - [Contribuição](#contribuição)
