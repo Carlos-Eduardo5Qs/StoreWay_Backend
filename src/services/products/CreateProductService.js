@@ -33,6 +33,7 @@ CreateProduct.prototype.create = async function () {
     ];
 
     const createProduct = new RegisterProduct(product);
+    createProduct.register();
   } catch (error) {
     console.log(error.message);
   }

@@ -4,8 +4,6 @@ function RegisterProduct(product) {
   Database.call(this);
 
   this.product = product;
-
-  this.register();
 }
 
 RegisterProduct.prototype = Object.create(Database.prototype);
