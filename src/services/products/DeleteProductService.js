@@ -20,7 +20,7 @@ DeleteProduct.prototype.delete = async function () {
 
   if (!product || !doesFileExist) return false;
 
-  const deleteImage = await this.deleteImage(product.image_filename, product.image_id);
+  await this.deleteImage(product.image_filename, product.image_id);
 
   const deleteProductFromDatabase = new DeleteProducts(product.id);
   const result = await deleteProductFromDatabase.delete();

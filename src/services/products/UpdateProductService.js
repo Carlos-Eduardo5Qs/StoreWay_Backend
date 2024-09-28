@@ -22,64 +22,73 @@ function UpdateProduct(id, name, image, description, price, category, brand, sto
 }
 
 UpdateProduct.prototype.updateProduct = async function () {
-  try {
-    const updateImages = await this.updateImage();
+  const updateImages = await this.updateImage();
 
-    const product = [
-      this.name,
-      updateImages.url,
-      updateImages.id,
-      updateImages.fileName,
-      this.description,
-      this.price,
-      this.category,
-      this.brand,
-      this.stock,
-      this.id,
-    ];
+  const product = [
+    this.name,
+    updateImages.url,
+    updateImages.id,
+    updateImages.fileName,
+    this.description,
+    this.price,
+    this.category,
+    this.brand,
+    this.stock,
+    this.id,
+  ];
 
-    const update = new UpdatedProductModel(product);
-    update.update();
-  } catch (error) {
-    throw new Error(error.message);
+  const update = new UpdatedProductModel(product);
+  const result = await update.update();
+
+  if (!result) {
+    return false;
+  } else {
+    return true;
   }
 };
 
 UpdateProduct.prototype.updateImage = async function () {
-  const product = await this.searchProduct();
+  try {
+    const product = await this.searchProduct();
 
-  if (!product) throw new Error('Product not found.');
+    if (!product) throw new Error('Product not found.');
 
-  const fileExists = await this.doesFileExist(product.image_filename);
+    const fileExists = await this.doesFileExist(product.image_filename);
 
-  if (!fileExists) throw new Error('Error when updating product.');
+    if (!fileExists) throw new Error('Error when updating product.');
 
-  await this.deleteImage(product.image_filename, product.image_id);
+    await this.deleteImage(product.image_filename, product.image_id);
 
-  const update = await this.uploadImage();
+    const update = await this.uploadImage();
 
-  return update;
+    return update;
+  } catch (error) {
+    throw new Error(`Error updating image: ${error.message}`);
+  }
 };
 
 UpdateProduct.prototype.uploadImage = async function () {
-  const authResponse = await this.b2.authorize();
-  const { downloadUrl } = authResponse.data;
+  try {
+    const authResponse = await this.b2.authorize();
+    const { downloadUrl } = authResponse.data;
 
-  const response = await this.b2.getUploadUrl({ bucketId: process.env.BUCKET_ID });
-  const { authorizationToken, uploadUrl } = response.data;
+    const response = await this.b2.getUploadUrl({ bucketId: process.env.BUCKET_ID });
+    const { authorizationToken, uploadUrl } = response.data;
 
-  const params = {
-    uploadUrl,
-    uploadAuthToken: authorizationToken,
-    fileName: `products/${this.image.originalname}`,
-    data: this.image.buffer,
-  };
+    const params = {
+      uploadUrl,
+      uploadAuthToken: authorizationToken,
+      fileName: `products/${this.image.originalname}`,
+      data: this.image.buffer,
+    };
 
-  const fileInfo = await this.b2.uploadFile(params);
+    const fileInfo = await this.b2.uploadFile(params);
+    const url = `${downloadUrl}/file/${process.env.BUCKET_NAME}/${params.fileName}`;
 
-  const url = `${downloadUrl}/file/${process.env.BUCKET_NAME}/${params.fileName}`;
-
-  return { url, id: fileInfo.data.fileId, fileName: fileInfo.data.fileName };
+    return { url, id: fileInfo.data.fileId, fileName: fileInfo.data.fileName };
+  } catch (error) {
+    throw new Error(`Error uploading image: ${error.message}`);
+  }
 };
 
 UpdateProduct.prototype.deleteImage = async function (fileName, fileId) {
@@ -91,14 +100,18 @@ UpdateProduct.prototype.deleteImage = async function (fileName, fileId) {
       fileId,
     });
   } catch (error) {
-    console.error(`Error deleting file ${fileName} with fileId ${fileId}: ${error.message}`);
+    throw new Error(`Error deleting file ${fileName} with fileId ${fileId}: ${error.message}`);
   }
 };
 
 UpdateProduct.prototype.searchProduct = async function () {
-  const checkProduct = new CheckProduct(this.id);
-  const product = await checkProduct.find();
-  return product;
+  try {
+    const checkProduct = new CheckProduct(this.id);
+    const product = await checkProduct.find();
+    return product;
+  } catch (error) {
+    throw new Error(`Error fiding product: ${error.message}`);
+  }
 };
 
 UpdateProduct.prototype.doesFileExist = async function (fileName) {
@@ -117,7 +130,7 @@ UpdateProduct.prototype.doesFileExist = async function (fileName) {
       return true;
     }
   } catch (error) {
-    console.log(error);
+    throw new Error(`Error checking if the file exists: ${error.message}`);
   }
 };
 

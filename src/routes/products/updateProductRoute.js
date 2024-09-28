@@ -9,6 +9,6 @@ const verifyAuthorization = require('../../middlewares/verifyAuthorizarion');
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-router.put('/products/update', verifyAuthorization, upload.single('file'), updateProductController.update);
+router.put('/products/update/:id', verifyAuthorization, upload.single('file'), updateProductController.update);
 
 module.exports = router;

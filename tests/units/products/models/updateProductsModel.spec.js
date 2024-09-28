@@ -17,7 +17,7 @@ describe('Update product model', () => {
         ];
 
         mockConnection = {
-            execute: jest.fn().mockResolvedValue(),
+            execute: jest.fn().mockResolvedValue([{ affectedRows: 1 }]),
             release: jest.fn(),
         };
 

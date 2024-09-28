@@ -11,10 +11,14 @@ exports.update = async (req, res) => {
 
   try {
     const updateProduct = new UpdateProduct(id, name, req.file, description, price, category, brand, stock);
-    await updateProduct.updateProduct();
-  } catch (error) {
-    return res.status(400).json({ data: { message: error.message } });
-  }
+    const result = await updateProduct.updateProduct();
 
-  res.status(200).json({ data: { message: 'Updated product' } });
+    if (!result) {
+      return res.status(500).json({ data: { message: 'Something wrong happened, sorry :(' } });
+    }
+
+    res.status(200).json({ data: { message: 'Updated product successfuly.' } });
+  } catch (error) {
+    return res.status(400).json({ data: { message: 'An error occurred while updating the product. Please try again later.' } });
+  }
 };

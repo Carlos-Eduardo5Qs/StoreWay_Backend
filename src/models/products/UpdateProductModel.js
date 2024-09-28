@@ -11,7 +11,13 @@ UpdateProduct.prototype.update = async function () {
   const connection = await this.openConnection();
   try {
     const sql = 'UPDATE products SET name = ?, image = ?, image_id = ?, image_filename = ?, description = ?, price = ?, category = ?, brand = ?, stock = ? WHERE id = ?';
-    await connection.execute(sql, this.product);
+    const [result] = await connection.execute(sql, this.product);
+
+    if (result.affectedRows > 0) {
+      return true;
+    } else {
+      return false;
+    }
   } catch (error) {
     throw new Error(`DATABASE ERROR: ${error.message}`);
   } finally {
