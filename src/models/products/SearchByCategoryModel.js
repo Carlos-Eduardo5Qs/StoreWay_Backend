@@ -19,7 +19,7 @@ SearchByCategory.prototype.search = async function () {
       return rows;
     }
   } catch (error) {
-    console.log(error);
+    throw new Error(`DATABASE ERROR: ${error.message}`);
   } finally {
     this.releaseConnection(connection);
   }

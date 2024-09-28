@@ -18,11 +18,18 @@ DeleteProduct.prototype.delete = async function () {
   const product = await this.findProduct();
   const doesFileExist = await this.doesFileExist(product.image_filename);
 
-  if (!product && !doesFileExist) throw new Error('Product does not exist');
+  if (!product || !doesFileExist) return false;
 
   const deleteImage = await this.deleteImage(product.image_filename, product.image_id);
+
   const deleteProductFromDatabase = new DeleteProducts(product.id);
-  await deleteProductFromDatabase.delete();
+  const result = await deleteProductFromDatabase.delete();
+
+  if (!result) {
+    return false;
+  } else {
+    return true;
+  }
 };
 
 DeleteProduct.prototype.findProduct = async function () {
@@ -31,7 +38,7 @@ DeleteProduct.prototype.findProduct = async function () {
     const product = await searchProduct.find();
     return product;
   } catch (error) {
-    throw new Error();
+    throw new Error(`Error fiding products: ${error.message}`);
   }
 };
 
@@ -51,11 +58,15 @@ DeleteProduct.prototype.doesFileExist = async function (fileName) {
       return true;
     }
   } catch (error) {
-    console.log(error);
+    throw new Error(`Error confirming file existence: ${error.message}`);
   }
 };
 
 DeleteProduct.prototype.deleteImage = async function (fileName, fileId) {
+  if (!fileName || !fileId) {
+    throw new Error(`Error: fileName or fileId not set. fileName: ${fileName}, fileId: ${fileId}`);
+  }
+
   try {
     await this.b2.authorize();
 
@@ -64,7 +75,7 @@ DeleteProduct.prototype.deleteImage = async function (fileName, fileId) {
       fileId,
     });
   } catch (error) {
-    console.error(`Error deleting file ${fileName} with fileId ${fileId}: ${error.message}`);
+    throw new Error(`Error deleting file: ${error.message}`);
   }
 };
 

@@ -11,13 +11,13 @@ SearchAllProducts.prototype.search = async function () {
   try {
     const sql = 'SELECT * FROM products';
     const [rows] = await connection.execute(sql);
-    if (!rows.length > 0) {
+    if (rows.length === 0) {
       return false;
     } else {
       return rows;
     }
   } catch (error) {
-    console.log(error);
+    throw new Error(`DATABASE ERROR: ${error.message}`);
   } finally {
     this.releaseConnection(connection);
   }

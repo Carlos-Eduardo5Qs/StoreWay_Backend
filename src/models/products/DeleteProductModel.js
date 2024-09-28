@@ -11,7 +11,13 @@ DeleteProduct.prototype.delete = async function () {
   const connection = await this.openConnection();
   try {
     const sql = 'DELETE FROM products WHERE id = ?';
-    await connection.execute(sql, [this.id]);
+    const [result] = await connection.execute(sql, [this.id]);
+
+    if (result.affectedRows > 0) {
+      return true;
+    } else {
+      return false;
+    }
   } catch (error) {
     throw new Error(`DATABASE ERROR: ${error.message}`);
   } finally {

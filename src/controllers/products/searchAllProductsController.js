@@ -5,7 +5,7 @@ exports.searchAllProducts = async (req, res) => {
     const searchAllProducts = new SearchAllProducts();
     const allProducts = await searchAllProducts.search();
 
-    if (!allProducts) return res.status(404).json({ data: { message: 'No products found;' } });
+    if (!allProducts.length) return res.status(404).json({ data: { message: 'No products found;' } });
 
     const productsToSend = allProducts.map((products) => {
       // eslint-disable-next-line camelcase
@@ -15,6 +15,7 @@ exports.searchAllProducts = async (req, res) => {
 
     res.status(200).json({ data: { products: productsToSend } });
   } catch (error) {
-    return res.status(500).json({ data: { message: 'Internal Server Error.' } });
+    console.log(error.message);
+    return res.status(500).json({ data: { message: 'An error occurred while listing the products. Please try again later.' } });
   }
 };

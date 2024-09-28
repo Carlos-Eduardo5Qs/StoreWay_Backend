@@ -1,6 +1,6 @@
 const CreateProduct = require('../../services/products/CreateProductService');
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   const {
     name, description, price, category, brand, stock,
   } = req.body;
@@ -10,9 +10,15 @@ exports.create = (req, res) => {
   }
 
   try {
-    const createProduct = new CreateProduct(name, req.file, description, price, category, brand, stock);
-    res.status(200).json({ message: 'Created product.' });
+    const createProduct = new CreateProduct(name, req.file, description, price, category, brand, stock); const result = await createProduct.create();
+
+    if (!result) {
+      return res.status(500).json({ data: { message: 'Something wrong happened, sorry :(' } });
+    }
+
+    res.status(200).json({ message: 'Created product successfuly.' });
   } catch (error) {
-    res.status(401).json({ data: { message: error.message } });
+    console.log(error.message);
+    res.status(500).json({ data: { message: 'An error occurred while creating the product. Please try again later.' } });
   }
 };

@@ -22,6 +22,8 @@ CREATE TABLE products (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   name VARCHAR(60) NOT NULL,
   image VARCHAR(255),
+  image_id VARCHAR(255),
+  image_filename VARCHAR(255),
   description TEXT NOT NULL,
   price DECIMAL(10, 2) NOT NULL,
   category VARCHAR(300) NOT NULL,

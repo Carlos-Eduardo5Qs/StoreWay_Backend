@@ -39,6 +39,7 @@ UpdateProduct.prototype.updateProduct = async function () {
     ];
 
     const update = new UpdatedProductModel(product);
+    update.update();
   } catch (error) {
     throw new Error(error.message);
   }

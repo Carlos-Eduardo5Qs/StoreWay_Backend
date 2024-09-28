@@ -1,9 +1,9 @@
-const CreateProduct = require('../../src/models/products/CreateProductModel');
-const Database = require('../../src/config/Database');
+const CreateProduct = require('../../../../src/models/products/CreateProductModel');
+const Database = require('../../../../src/config/Database');
 
-jest.mock('../../src/config/Database');
+jest.mock('../../../../src/config/Database');
 
-describe('Create product model', () => {
+describe('CreateProductsModel', () => {
     let productData;
     let mockConnection;
 
@@ -16,7 +16,7 @@ describe('Create product model', () => {
         ];
 
         mockConnection = {
-            execute: jest.fn().mockResolvedValue(),
+            execute: jest.fn().mockResolvedValue([{ affectedRows: 1 }]),
             release: jest.fn(),
         };
 

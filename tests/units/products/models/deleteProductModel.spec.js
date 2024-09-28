@@ -1,8 +1,8 @@
-const DeleteProduct = require('../../src/models/products/DeleteProductModel');
-const Database = require('../../src/config/Database');
+const DeleteProduct = require('../../../../src/models/products/DeleteProductModel');
+const Database = require('../../../../src/config/Database');
 const { isTaxID } = require('validator');
 
-jest.mock('../../src/config/Database');
+jest.mock('../../../../src/config/Database');
 
 describe('Delete product model', () => {
     let deleteProduct;
@@ -12,7 +12,7 @@ describe('Delete product model', () => {
         jest.clearAllMocks();
 
         mockConnection = {
-            execute: jest.fn().mockResolvedValue(),
+            execute: jest.fn().mockResolvedValue([{ affectedRows: 1 }]),
             release: jest.fn(),
         };
 

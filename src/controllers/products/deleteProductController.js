@@ -4,19 +4,21 @@ exports.delete = async (req, res) => {
   const { id } = req.params;
 
   if (!id) {
-    return res.status(400).json({ data: { message: 'The product could not be deleted.' } });
+    return res.status(400).json({ data: { message: 'Invalid product ID.' } });
   }
 
   try {
     const deleteProduct = new DeleteProduct(id);
-    await deleteProduct.delete();
-  } catch (error) {
-    if (error.message) {
-      return res.status(404).json({ data: { message: error.message } });
-    } else {
-      return res.status(404).json({ data: { message: 'The product could not be deleted.' } });
-    }
-  }
+    const result = await deleteProduct.delete();
 
-  res.status(200).json({ data: { message: 'Product deleted.' } });
+    if (!result) {
+      return res.status(404).json({ data: { message: 'Product not found' } });
+    }
+
+    return res.status(200).json({ data: { message: 'Product Deleted successfully' } });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({ data: { message: 'An error occurred while deleting the product. Please try again later.' } });
+  }
 };
