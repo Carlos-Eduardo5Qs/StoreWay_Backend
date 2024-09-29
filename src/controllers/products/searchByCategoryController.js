@@ -17,7 +17,7 @@ exports.searchByCategory = async (req, res) => {
     });
     res.status(200).json({ data: { message: products } });
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
     return res.status(500).json({ data: { message: 'An error occurred while listing the products by category. Please try again later.' } });
   }
 };

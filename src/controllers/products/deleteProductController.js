@@ -18,7 +18,6 @@ exports.delete = async (req, res) => {
     return res.status(200).json({ data: { message: 'Product Deleted successfully' } });
   } catch (error) {
     console.error(error);
-
     return res.status(500).json({ data: { message: 'An error occurred while deleting the product. Please try again later.' } });
   }
 };

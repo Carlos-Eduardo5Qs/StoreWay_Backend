@@ -15,7 +15,7 @@ exports.searchAllProducts = async (req, res) => {
 
     res.status(200).json({ data: { products: productsToSend } });
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
     return res.status(500).json({ data: { message: 'An error occurred while listing the products. Please try again later.' } });
   }
 };

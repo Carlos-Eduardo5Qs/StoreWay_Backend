@@ -1,6 +1,6 @@
-CREATE DATABASE StoreWay CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE storeway CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE StoreWay;
+USE storeway;
 
 CREATE TABLE user_profile (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,

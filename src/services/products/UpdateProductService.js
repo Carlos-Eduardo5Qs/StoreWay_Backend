@@ -24,6 +24,8 @@ function UpdateProduct(id, name, image, description, price, category, brand, sto
 UpdateProduct.prototype.updateProduct = async function () {
   const updateImages = await this.updateImage();
 
+  if (!updateImages) return false;
+
   const product = [
     this.name,
     updateImages.url,
@@ -51,7 +53,7 @@ UpdateProduct.prototype.updateImage = async function () {
   try {
     const product = await this.searchProduct();
 
-    if (!product) throw new Error('Product not found.');
+    if (!product) return false;
 
     const fileExists = await this.doesFileExist(product.image_filename);
 

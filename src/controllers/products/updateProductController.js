@@ -14,11 +14,12 @@ exports.update = async (req, res) => {
     const result = await updateProduct.updateProduct();
 
     if (!result) {
-      return res.status(500).json({ data: { message: 'Something wrong happened, sorry :(' } });
+      return res.status(404).json({ data: { message: 'Product not found' } });
     }
 
     res.status(200).json({ data: { message: 'Updated product successfuly.' } });
   } catch (error) {
+    console.error(error.message);
     return res.status(400).json({ data: { message: 'An error occurred while updating the product. Please try again later.' } });
   }
 };

@@ -1,6 +1,5 @@
 const UpdateProduct = require('../../../../src/models/products/UpdateProductModel');
 const Database = require('../../../../src/config/Database');
-const { default: isTaxID } = require('validator/lib/isTaxID');
 
 jest.mock('../../../../src/config/Database');
 
