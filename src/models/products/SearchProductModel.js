@@ -19,7 +19,7 @@ SearchProduct.prototype.find = async function () {
       return rows[0];
     }
   } catch (error) {
-    console.log(error);
+    throw new Error(`DATABASE ERROR: ${error.message}`);
   } finally {
     this.releaseConnection(connection);
   }

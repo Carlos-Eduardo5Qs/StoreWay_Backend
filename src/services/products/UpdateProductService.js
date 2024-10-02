@@ -60,8 +60,11 @@ UpdateProduct.prototype.updateProduct = async function () {
 };
 
 UpdateProduct.prototype.isProductUpdated = function (currentProduct) {
+  const nameImageOne = this.image.originalname;
+  const nameImageTwo = currentProduct.image_filename.split('/').pop();
   return (
     this.name.trim() !== currentProduct.name.trim()
+    || nameImageOne.trim() !== nameImageTwo.trim()
     || this.description.trim() !== currentProduct.description.trim()
     || parseFloat(this.price) !== parseFloat(currentProduct.price)
     || this.category.trim() !== currentProduct.category.trim()
