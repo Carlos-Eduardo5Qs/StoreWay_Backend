@@ -22,6 +22,16 @@ function UpdateProduct(id, name, image, description, price, category, brand, sto
 }
 
 UpdateProduct.prototype.updateProduct = async function () {
+  const currentProduct = await this.searchProduct();
+
+  if (!currentProduct) return false;
+
+  const isUpdated = this.isProductUpdated(currentProduct);
+
+  const results = isUpdated ? 'true' : 'false';
+
+  if (results === 'false') return 'false';
+
   const updateImages = await this.updateImage();
 
   if (!updateImages) return false;
@@ -47,6 +57,18 @@ UpdateProduct.prototype.updateProduct = async function () {
   } else {
     return true;
   }
+};
+
+UpdateProduct.prototype.isProductUpdated = function (currentProduct) {
+  return (
+    this.name.trim() !== currentProduct.name.trim()
+    || this.description.trim() !== currentProduct.description.trim()
+    || parseFloat(this.price) !== parseFloat(currentProduct.price)
+    || this.category.trim() !== currentProduct.category.trim()
+    || this.brand.trim() !== currentProduct.brand.trim()
+    // eslint-disable-next-line radix
+    || parseInt(this.stock) !== parseInt(currentProduct.stock)
+  );
 };
 
 UpdateProduct.prototype.updateImage = async function () {

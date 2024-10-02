@@ -13,9 +13,8 @@ exports.update = async (req, res) => {
     const updateProduct = new UpdateProduct(id, name, req.file, description, price, category, brand, stock);
     const result = await updateProduct.updateProduct();
 
-    if (!result) {
-      return res.status(404).json({ data: { message: 'Product not found' } });
-    }
+    if (!result) return res.status(404).json({ data: { message: 'Product not found' } });
+    if (result === 'false') return res.status(409).json({ data: { message: 'Product is up to date' } });
 
     res.status(200).json({ data: { message: 'Updated product successfuly.' } });
   } catch (error) {
