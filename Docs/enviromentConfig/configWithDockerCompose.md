@@ -7,6 +7,7 @@ Antes de começar, você precisará ter o Node.js, Docker e o Docker Compose ins
 - [Node.js](https://nodejs.org/pt)
 - [Docker](https://www.docker.com/get-started)
 - [Docker Compose](https://docs.docker.com/compose/install/)
+
 ### 2. Criar uma conta no Mailtrap
 
 A StoreWay APi utiliza o serviço Mailtrap para testar o envio de e-mails. Siga as etapas abaixo para criar uma conta no Mailtrap:
@@ -269,12 +270,11 @@ O volume `db-data` garante que os dados do banco de dados MySQL sejam persistido
 
 ![Demo](https://i.imgur.com/3nE9T9f.gif)
 
-
-Observe que após rodar o comando `npm i && docker-compose up -d && docker-compose logs -f app` o servidor retorna a seguinte saída:
+> **Observação**: caso você rodar o comando `npm i && docker-compose up -d && docker-compose logs -f app`, e o servidor retorna a seguinte saída:
 
 ![Tela de sucesso](../imgs/output.png)
 
-Isso acontece porque as vezes o Docker Compose não consegue iniciar o container do banco de dados antes de inciar o container da aplicação, mas basta esperar alguns segundos que o Docker Compose irá realizar o trabalho dele configurando tudo pra você se você configurou tudo corretamente o(￣▽￣)ｄ.
+Relaxa, Isso acontece porque as vezes o Docker Compose não consegue iniciar o container do banco de dados antes de inciar o container da aplicação, mas basta mexer em qualquer parte do cógigo, que o nedemon irá reiniciar o servidor automáticamente dentro do container se você configurou tudo corretamente o(￣▽￣)ｄ.
 
 ## Sumário
 
