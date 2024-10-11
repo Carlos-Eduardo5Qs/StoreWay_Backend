@@ -267,7 +267,8 @@ O volume `db-data` garante que os dados do banco de dados MySQL sejam persistido
 
 ### 14. Demonstração de inicialização do servidor
 
-![Vídeo de demonstração](../videos/Demo.mp4)
+![Demo](https://i.imgur.com/3nE9T9f.gif)
+
 
 Observe que após rodar o comando `npm i && docker-compose up -d && docker-compose logs -f app` o servidor retorna a seguinte saída:
 
