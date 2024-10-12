@@ -272,9 +272,9 @@ O volume `db-data` garante que os dados do banco de dados MySQL sejam persistido
 
 > **Observação**: caso você rodar o comando `npm i && docker-compose up -d && docker-compose logs -f app`, e o servidor retorna a seguinte saída:
 
-![Tela de sucesso](../imgs/output.png)
+![Output](https://i.imgur.com/00MN3x2.png)
 
-Relaxa, Isso acontece porque as vezes o Docker Compose não consegue iniciar o container do banco de dados antes de inciar o container da aplicação, mas basta mexer em qualquer parte do cógigo, que o nedemon irá reiniciar o servidor automáticamente dentro do container se você configurou tudo corretamente o(￣▽￣)ｄ.
+Relaxa, Isso acontece porque as vezes o Docker Compose não consegue iniciar o container do banco de dados antes de inciar o container da aplicação, mas basta mexer em qualquer parte do cógigo, que o nodemon irá reiniciar o servidor automáticamente dentro do container se você configurou tudo corretamente o(￣▽￣)ｄ.
 
 ## Sumário
 
