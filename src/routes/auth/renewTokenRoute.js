@@ -1,6 +1,6 @@
 const express = require('express');
 
-const renewTokenController = require('../controllers/renewTokenController');
+const renewTokenController = require('../../controllers/auth/renewTokenController');
 
 const router = express.Router();
 

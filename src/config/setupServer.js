@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const createAccountRoute = require('../routes/users/createAccountRoute');
 const loginRoute = require('../routes/users/authRoute');
-const renewTokenRoute = require('../routes/renewTokenRoute');
+const renewTokenRoute = require('../routes/auth/renewTokenRoute');
 const createProductRoute = require('../routes/products/createProductRoute');
 const updateProductRoute = require('../routes/products/updateProductRoute');
 const deleteProductRoute = require('../routes/products/deleteProductRoute');
