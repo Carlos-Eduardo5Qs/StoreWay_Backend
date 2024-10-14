@@ -42,11 +42,26 @@ ${error.message}`);
 };
 
 StartServer.prototype.checkEnvironmentVariables = function () {
-  const keys = Object.keys(this.enviromentVariables);
+  const keys = [
+    'SERVER_PORT',
+    'DATABASE_HOST',
+    'DATABASE_USER',
+    'DATABASE_PASSWORD',
+    'MAIL_HOST',
+    'MAIL_PORT',
+    'MAIL_USER',
+    'MAIL_PASS',
+    'MAIL_FROM',
+    'SECRET_KEY',
+    'BUCKET_ID',
+    'BUCKET_NAME',
+    'APP_KEY',
+    'KEY_ID',
+  ];
 
   for (let i = 0; i < keys.length; i += 1) {
-    if (!this.enviromentVariables[keys[i]]) {
-      throw new Error('ENVIROMENT VARIABLES ERROR: Make sure to check your environment variables (¬_¬ )');
+    if (!process.env[keys[i]]) {
+      throw new Error('ENVIRONMENT VARIABLES ERROR: Make sure to check your environment variables (¬_¬ )');
     }
   }
 };
