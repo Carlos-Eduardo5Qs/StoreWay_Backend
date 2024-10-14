@@ -19,6 +19,6 @@ exports.update = async (req, res) => {
     res.status(200).json({ data: { message: 'Updated product successfuly.' } });
   } catch (error) {
     console.error(error.message);
-    return res.status(400).json({ data: { message: 'An error occurred while updating the product. Please try again later.' } });
+    return res.status(500).json({ data: { message: 'An error occurred while updating the product. Please try again later.' } });
   }
 };
