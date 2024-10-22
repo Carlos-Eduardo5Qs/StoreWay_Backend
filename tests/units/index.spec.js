@@ -5,7 +5,7 @@ const app = require('../../src/config/setupServer');
 
 jest.mock('../../src/config/setupServer', () => ({
   listen: jest.fn((port, callback) => {
-    callback(); // Chama o callback imediatamente para simular que o servidor está rodando
+    callback();
   }),
 }));
 
@@ -22,7 +22,7 @@ describe('StartServer', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks(); // Limpa todos os mocks após cada teste
+    jest.clearAllMocks();
   });
 
   it('should initialize the server successfully', async () => {
@@ -40,7 +40,7 @@ describe('StartServer', () => {
   it('should log an error and exit if initialization fails', async () => {
     const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
     const originalExit = process.exit;
-    process.exit = jest.fn(); // Mock process.exit
+    process.exit = jest.fn();
 
     jest.spyOn(testInstance, 'checkEnvironmentVariables').mockImplementation(() => {
       throw new Error('Test: Missing environment variable');
@@ -51,7 +51,6 @@ describe('StartServer', () => {
     expect(consoleErrorSpy).toHaveBeenCalled();
     expect(process.exit).toHaveBeenCalledWith(1);
 
-    // Restore the original process.exit
     process.exit = originalExit;
   });
 
