@@ -8,7 +8,7 @@ exports.addPhoto = async (req, res) => {
     const addPhotoToAssessmentsService = new AddPhotoToAssessmentsService(avaliationId, file);
     await addPhotoToAssessmentsService.addPhoto();
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     return res.status(500).json({ data: { message: 'Internal Server Error' } });
   }
 
