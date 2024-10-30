@@ -20,7 +20,7 @@ exports.assessment = async (req, res) => {
     const createAssessment = new CreateAssessments(productId, userId, text, stars);
     await createAssessment.create();
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     return res.status(500).json({ data: { message: 'Internal Server Error.' } });
   }
 
