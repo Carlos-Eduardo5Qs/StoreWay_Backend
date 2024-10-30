@@ -38,4 +38,4 @@ describe('UpdateComentsModel', () => {
   
       await expect(updateComentsModel.update()).rejects.toThrow('DATABASE ERROR: Mocked database error');
     });
-  });
+});
