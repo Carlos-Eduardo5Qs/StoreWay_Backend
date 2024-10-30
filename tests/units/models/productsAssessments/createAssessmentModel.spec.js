@@ -1,10 +1,10 @@
-const AddPhotoToAssessments = require('../../../../src/models/productsAssessments/AddPhotoToAssessmentsModel');
+const CreateAssessment  = require('../../../../src/models/productsAssessments/CreateAssessmentsModel');
 const Database = require('../../../../src/config/Database');
 
 jest.mock('../../../../src/config/Database');
 
-describe('AddPhotoToAssessments Model', () => {
-    let addPhotoToAssessments;
+describe('CreateAssessment Model', () => {
+    let createAssessment;
     let mockConnection;
   
     beforeEach(() => {
@@ -15,20 +15,20 @@ describe('AddPhotoToAssessments Model', () => {
       Database.prototype.openConnection = jest.fn().mockResolvedValue(mockConnection);
       Database.prototype.releaseConnection = jest.fn();
       
-      addPhotoToAssessments = new AddPhotoToAssessments(1, 'imageData', 'img123', 'image.jpg');
+      createAssessment = new CreateAssessment(1, 2, 'Great product!', 5);
     });
   
     it('should call execute with correct SQL and parameters', async () => {
-      await addPhotoToAssessments.add();
+      await createAssessment.create();
   
       expect(mockConnection.execute).toHaveBeenCalledWith(
-        'INSERT INTO photoAvaliation (avaliation_id, image, image_id, image_filename) VALUES (?, ?, ?, ?)',
-        [1, 'imageData', 'img123', 'image.jpg']
+        'INSERT INTO avaliation (user_id, product_id, review, stars) VALUES (?, ?, ?, ?)',
+        [2, 1, 'Great product!', 5]
       );
     });
   
     it('should release the connection after executing the query', async () => {
-      await addPhotoToAssessments.add();
+      await createAssessment.create();
   
       expect(Database.prototype.releaseConnection).toHaveBeenCalledWith(mockConnection);
     });
@@ -36,6 +36,6 @@ describe('AddPhotoToAssessments Model', () => {
     it('should throw an error if execute fails', async () => {
       mockConnection.execute.mockRejectedValue(new Error('Mocked database error'));
   
-      await expect(addPhotoToAssessments.add()).rejects.toThrow('DATABASE ERROR: Mocked database error');
+      await expect(createAssessment.create()).rejects.toThrow('DATABASE ERROR: Mocked database error');
     });
   });
