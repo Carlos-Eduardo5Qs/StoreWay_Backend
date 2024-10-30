@@ -3,7 +3,7 @@ const Database = require('../../../../src/config/Database');
 
 jest.mock('../../../../src/config/Database');
 
-describe('RegisterAccount', () => {
+describe('RegisterAccount Model', () => {
   let registerAccount;
   let mockConnection;
 

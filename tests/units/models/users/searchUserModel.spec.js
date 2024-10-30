@@ -1,10 +1,10 @@
-const FindUser = require('../../../../src/models/users/FindUserModel');
+const SearchUser = require('../../../../src/models/users/SearchUserModel');
 const Database = require('../../../../src/config/Database');
 
 jest.mock('../../../../src/config/Database');
 
-describe('FindUser Model', () => {
-    let findUser;
+describe('SearchUser Model', () => {
+    let searchUser;
     let mockConnection;
 
     beforeEach(() => {
@@ -15,45 +15,45 @@ describe('FindUser Model', () => {
         Database.prototype.openConnection = jest.fn().mockResolvedValue(mockConnection);
         Database.prototype.releaseConnection = jest.fn();
 
-        findUser = new FindUser(1);
+        searchUser = new SearchUser('test@example.com');
     });
 
     it('should call execute with correct SQL and parameters', async () => {
-        await findUser.find();
+        await searchUser.find();
 
         expect(mockConnection.execute).toHaveBeenCalledWith(
-            'SELECT * FROM user_profile WHERE id = ?',
-            [1]
+            'SELECT * FROM user_profile WHERE email = ?',
+            ['test@example.com']
         );
     });
 
-    it('should return an empty object if no user is found', async () => {
-        const result = await findUser.find();
+    it('should return false if no user is found', async () => {
+        const result = await searchUser.find();
 
-        expect(result).toEqual({});
+        expect(result).toBe(false);
     });
 
     it('should return the user data if found', async () => {
         const userData = { id: 1, nick: 'testNick', user_name: 'testUser', email: 'test@example.com' };
         mockConnection.execute.mockResolvedValue([[userData]]);
 
-        const result = await findUser.find();
+        const result = await searchUser.find();
 
         expect(result).toEqual(userData);
     });
 
     it('should log an error if execute fails', async () => {
-        const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+        const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
         mockConnection.execute.mockRejectedValue(new Error('Mocked database error'));
 
-        await findUser.find();
+        await searchUser.find();
 
-        expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(Error));
-        consoleErrorSpy.mockRestore();
+        expect(consoleLogSpy).toHaveBeenCalledWith(expect.any(String));
+        consoleLogSpy.mockRestore();
     });
 
     it('should release the connection after executing the query', async () => {
-        await findUser.find();
+        await searchUser.find();
 
         expect(Database.prototype.releaseConnection).toHaveBeenCalledWith(mockConnection);
     });
