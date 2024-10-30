@@ -18,7 +18,7 @@ CreateAssessment.prototype.create = async function () {
     const sql = 'INSERT INTO avaliation (user_id, product_id, review, stars) VALUES (?, ?, ?, ?)';
     await connection.execute(sql, [this.userId, this.productId, this.text, this.stars]);
   } catch (error) {
-    throw new Error(error);
+    throw new Error(`DATABASE ERROR: ${error.message}`);
   } finally {
     this.releaseConnection(connection);
   }

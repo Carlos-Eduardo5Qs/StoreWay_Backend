@@ -17,7 +17,7 @@ AddPhotoToAssessments.prototype.add = async function () {
     const sql = 'INSERT INTO photoAvaliation (avaliation_id, image, image_id, image_filename) VALUES (?, ?, ?, ?)';
     await connection.execute(sql, [this.avaliationId, this.image, this.imageId, this.imageFilename]);
   } catch (error) {
-    throw new Error();
+    throw new Error(`DATABASE ERROR: ${error.message}`);
   } finally {
     this.releaseConnection(connection);
   }

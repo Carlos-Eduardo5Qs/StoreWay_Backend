@@ -16,7 +16,7 @@ UpdateComentsModel.prototype.update = async function () {
     const sql = 'UPDATE avaliation SET review = ?, stars = ? WHERE id = ?';
     await connection.execute(sql, [this.review, this.stars, this.assessmentId]);
   } catch (error) {
-    throw new Error(error);
+    throw new Error(`DATABASE ERROR: ${error.message}`);
   } finally {
     this.releaseConnection(connection);
   }
