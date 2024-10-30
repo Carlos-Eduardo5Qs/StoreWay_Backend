@@ -23,7 +23,7 @@ describe('updateAssessemtsController', () => {
 
     res = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn()
+      json: jest.fn(),
     };
 
     jest.clearAllMocks();
