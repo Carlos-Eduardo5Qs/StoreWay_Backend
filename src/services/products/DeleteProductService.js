@@ -16,9 +16,10 @@ function DeleteProduct(id) {
 
 DeleteProduct.prototype.delete = async function () {
   const product = await this.findProduct();
-  const doesFileExist = await this.doesFileExist(product.image_filename);
+  if (!product) return false;
 
-  if (!product || !doesFileExist) return false;
+  const doesFileExist = await this.doesFileExist(product.image_filename);
+  if (!doesFileExist) return false;
 
   await this.deleteImage(product.image_filename, product.image_id);
 
