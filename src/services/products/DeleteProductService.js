@@ -39,7 +39,7 @@ DeleteProduct.prototype.findProduct = async function () {
     const product = await searchProduct.find();
     return product;
   } catch (error) {
-    throw new Error(`Error fiding products: ${error.message}`);
+    throw new Error(`Error finding products: ${error.message}`);
   }
 };
 

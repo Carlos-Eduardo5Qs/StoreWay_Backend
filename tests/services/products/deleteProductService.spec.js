@@ -70,4 +70,39 @@ describe('DeleteProduct Service', () => {
 
         await expect(deleteProductInstance.delete()).rejects.toThrow('Error deleting file: Failed to delete');
     });
+
+    it('should throw an error if find() throws', async () => {
+        SearchProduct.mockImplementation(() => ({
+            find: jest.fn().mockRejectedValue(new Error('Test error')),
+        }));
+        await expect(deleteProductInstance.findProduct()).rejects.toThrow('Error finding products: Test error');
+    });
+
+    it('should throw an error if listFileNames() fails', async () => {
+        deleteProductInstance.b2.listFileNames.mockRejectedValue(new Error('Test error'));
+        await expect(deleteProductInstance.doesFileExist('test-file')).rejects.toThrow('Error confirming file existence: Test error');
+    });
+
+    it('should throw an error if fileName or fileId is missing', async () => {
+        await expect(deleteProductInstance.deleteImage(null, 'fileId')).rejects.toThrow('Error: fileName or fileId not set.');
+        await expect(deleteProductInstance.deleteImage('fileName', null)).rejects.toThrow('Error: fileName or fileId not set.');
+    });
+
+    it('should return false if deleting from database fails', async () => {
+        const mockProduct = { id: 1, image_filename: 'test.png', image_id: '12345' };
+    
+        SearchProduct.mockImplementation(() => ({
+            find: jest.fn().mockResolvedValue(mockProduct),
+        }));
+        deleteProductInstance.b2.listFileNames.mockResolvedValue({ data: { files: [mockProduct] } });
+        deleteProductInstance.b2.deleteFileVersion.mockResolvedValue({});
+    
+        // Simula a falha ao deletar o produto do banco de dados
+        DeleteProducts.mockImplementation(() => ({
+            delete: jest.fn().mockResolvedValue(false),
+        }));
+    
+        const result = await deleteProductInstance.delete();
+        expect(result).toBe(false);
+    });
 });
