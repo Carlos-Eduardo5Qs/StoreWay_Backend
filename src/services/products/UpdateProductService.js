@@ -60,8 +60,8 @@ UpdateProduct.prototype.updateProduct = async function () {
 };
 
 UpdateProduct.prototype.isProductUpdated = function (currentProduct) {
-  const nameImageOne = this.image.originalname;
-  const nameImageTwo = currentProduct.image_filename.split('/').pop();
+  const nameImageOne = this.image?.originalname || '';
+  const nameImageTwo = currentProduct.image_filename ? currentProduct.image_filename.split('/').pop() : '';
   return (
     this.name.trim() !== currentProduct.name.trim()
     || nameImageOne.trim() !== nameImageTwo.trim()

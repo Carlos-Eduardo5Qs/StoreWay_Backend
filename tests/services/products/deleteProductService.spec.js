@@ -90,18 +90,17 @@ describe('DeleteProduct Service', () => {
 
     it('should return false if deleting from database fails', async () => {
         const mockProduct = { id: 1, image_filename: 'test.png', image_id: '12345' };
-    
+
         SearchProduct.mockImplementation(() => ({
             find: jest.fn().mockResolvedValue(mockProduct),
         }));
         deleteProductInstance.b2.listFileNames.mockResolvedValue({ data: { files: [mockProduct] } });
         deleteProductInstance.b2.deleteFileVersion.mockResolvedValue({});
-    
-        // Simula a falha ao deletar o produto do banco de dados
+
         DeleteProducts.mockImplementation(() => ({
             delete: jest.fn().mockResolvedValue(false),
         }));
-    
+
         const result = await deleteProductInstance.delete();
         expect(result).toBe(false);
     });
