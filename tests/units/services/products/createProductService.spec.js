@@ -1,9 +1,9 @@
 const B2 = require('backblaze-b2');
-const RegisterProduct = require('../../../src/models/products/CreateProductModel');
-const CreateProduct = require('../../../src/services/products/CreateProductService');
+const RegisterProduct = require('../../../../src/models/products/CreateProductModel');
+const CreateProduct = require('../../../../src/services/products/CreateProductService');
 
 jest.mock('backblaze-b2');
-jest.mock('../../../src/models/products/CreateProductModel');
+jest.mock('../../../../src/models/products/CreateProductModel');
 
 const mockProductData = {
     name: 'Produto Teste',

@@ -1,11 +1,11 @@
 const B2 = require('backblaze-b2')
-const CheckProduct = require('../../../src/models/products/SearchProductModel');
-const UpdatedProductModel = require('../../../src/models/products/UpdateProductModel');
-const UpdateProduct = require('../../../src/services/products/UpdateProductService');
+const CheckProduct = require('../../../../src/models/products/SearchProductModel');
+const UpdatedProductModel = require('../../../../src/models/products/UpdateProductModel');
+const UpdateProduct = require('../../../../src/services/products/UpdateProductService');
 
 jest.mock('backblaze-b2');
-jest.mock('../../../src/models/products/SearchProductModel');
-jest.mock('../../../src/models/products/UpdateProductModel');
+jest.mock('../../../../src/models/products/SearchProductModel');
+jest.mock('../../../../src/models/products/UpdateProductModel');
 
 describe('UpdateProduct Service', () => {
     let updateProduct;
@@ -221,5 +221,31 @@ describe('UpdateProduct Service', () => {
         updateProduct.b2.listFileNames = jest.fn().mockRejectedValue(new Error('List files failed'));
 
         await expect(updateProduct.doesFileExist('file-name')).rejects.toThrow('Error checking if the file exists: List files failed');
+    });
+
+    it('should throw an error when product search fails', async () => {
+        const mockFind = jest.fn().mockRejectedValue(new Error('Produto não encontrado'));
+        CheckProduct.mockImplementation(() => ({
+            find: mockFind,
+        }));
+
+        await expect(updateProduct.searchProduct()).rejects.toThrow(
+            'Error fiding product: Produto não encontrado'
+        );
+        expect(mockFind).toHaveBeenCalledTimes(1);
+        expect(CheckProduct).toHaveBeenCalledWith('product-id');
+    });
+
+    it('should return the product when the search is successful', async () => {
+        const mockFind = jest.fn().mockResolvedValue({ id: 123, name: 'product test' });
+        CheckProduct.mockImplementation(() => ({
+            find: mockFind,
+        }));
+
+        const product = await updateProduct.searchProduct();
+
+        expect(product).toEqual({ id: 123, name: 'product test' });
+        expect(mockFind).toHaveBeenCalledTimes(1);
+        expect(CheckProduct).toHaveBeenCalledWith('product-id');
     });
 });

@@ -1,6 +1,6 @@
-const DeleteProduct = require('../../../src/services/products/DeleteProductService');
-const SearchProduct = require('../../../src/models/products/SearchProductModel');
-const DeleteProducts = require('../../../src/models/products/DeleteProductModel');
+const DeleteProduct = require('../../../../src/services/products/DeleteProductService');
+const SearchProduct = require('../../../../src/models/products/SearchProductModel');
+const DeleteProducts = require('../../../../src/models/products/DeleteProductModel');
 const B2 = require('backblaze-b2');
 
 jest.mock('dotenv', () => ({
@@ -8,8 +8,8 @@ jest.mock('dotenv', () => ({
 }));
 
 jest.mock('backblaze-b2');
-jest.mock('../../../src/models/products/SearchProductModel');
-jest.mock('../../../src/models/products/DeleteProductModel');
+jest.mock('../../../../src/models/products/SearchProductModel');
+jest.mock('../../../../src/models/products/DeleteProductModel');
 
 describe('DeleteProduct Service', () => {
     let deleteProductInstance;
