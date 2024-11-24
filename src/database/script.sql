@@ -36,7 +36,7 @@ CREATE TABLE avaliation (
   user_id INT NOT NULL,
   product_id INT NOT NULL,
   review TEXT,
-  stars INT,
+  stars INT CHECK (stars >= 1 AND stars <= 5),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES user_profile(id),
