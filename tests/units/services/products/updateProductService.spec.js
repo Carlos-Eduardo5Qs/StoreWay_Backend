@@ -123,23 +123,31 @@ describe('UpdateProduct Service', () => {
         expect(result).toBe(true);
     });
 
-    it('should return false if all product properties are the same', () => {
-        // Dados de entrada para um produto que não mudou
-        const currentProduct = {
-          name: mockProductData.name,
-          image_filename: mockProductData.image.originalname,
-          description: mockProductData.description,
-          price: mockProductData.price,
-          category_id: mockProductData.category,
-          brand: mockProductData.brand,
-          stock: mockProductData.stock,
-        };
-      
-        // Espera-se que a comparação retorne false, pois todos os valores são iguais
-        const result = updateProduct.isProductUpdated(currentProduct);
-      
-        expect(result).toBe(false);
-      });
+    describe('isProductUpdated', () => {
+        it('should return false if all product properties are the same', () => {
+            const currentProduct = {
+                name: 'Produto Teste',
+                image_filename: 'images/produto_teste.png',
+                description: 'Descrição do produto teste.',
+                price: '29.99',
+                category_id: '2',
+                brand: 'Marca Teste',
+                stock: '100',
+            };
+
+            const updateProduct = new UpdateProduct();
+            updateProduct.name = 'Produto Teste';
+            updateProduct.image = { originalname: 'produto_teste.png' };
+            updateProduct.description = 'Descrição do produto teste.';
+            updateProduct.price = '29.99';
+            updateProduct.category = '2';
+            updateProduct.brand = 'Marca Teste';
+            updateProduct.stock = '100';
+
+            const result = updateProduct.isProductUpdated(currentProduct);
+            expect(result).toBe(false);
+        });
+    });
 
     it('should return updated image info when successful', async () => {
         updateProduct.searchProduct = jest.fn().mockResolvedValue({ image_filename: 'old-image.jpg' });
