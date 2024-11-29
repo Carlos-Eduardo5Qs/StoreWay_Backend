@@ -12,6 +12,7 @@ const searchByCategoryRoute = require('../routes/products/searchByCategoryRoute'
 const createAssessmentRoute = require('../routes/productsAssessments/createAssessmentRoute');
 const addPhotoToAssessmentRoute = require('../routes/productsAssessments/addPhotoToAssessmentsRoute');
 const updateAssessmentRoute = require('../routes/productsAssessments/updateAssessmentsRoute');
+const createCategoryRoute = require('../routes/categories/createCategoryRoute');
 
 const app = express();
 
@@ -30,5 +31,6 @@ app.use(searchByCategoryRoute);
 app.use(createAssessmentRoute);
 app.use(addPhotoToAssessmentRoute);
 app.use(updateAssessmentRoute);
+app.use(createCategoryRoute);
 
 module.exports = app;
