@@ -31,7 +31,7 @@ describe('Update product model', () => {
 
         expect(mockConnection.execute).toHaveBeenCalledTimes(1);
         expect(mockConnection.execute).toHaveBeenCalledWith(
-            'UPDATE products SET name = ?, image = ?, image_id = ?, image_filename = ?, description = ?, price = ?, category = ?, brand = ?, stock = ? WHERE id = ?',
+            'UPDATE products SET name = ?, image = ?, image_id = ?, image_filename = ?, description = ?, price = ?, category_id = ?, brand = ?, stock = ? WHERE id = ?',
             productData
         );
 

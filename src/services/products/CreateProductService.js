@@ -1,15 +1,16 @@
+/* eslint-disable camelcase */
 require('dotenv').config();
 
 const B2 = require('backblaze-b2');
 
 const RegisterProduct = require('../../models/products/CreateProductModel');
 
-function CreateProduct(name, image, description, price, category, brand, stock) {
+function CreateProduct(name, image, description, price, category_id, brand, stock) {
   this.name = name;
   this.image = image;
   this.description = description;
   this.price = Number(price).toFixed(2);
-  this.category = category;
+  this.category = category_id;
   this.brand = brand;
   this.stock = parseInt(stock, 10);
 }
@@ -23,7 +24,7 @@ CreateProduct.prototype.create = async function () {
     uploadedImage.fileName,
     this.description,
     this.price,
-    this.category,
+    parseInt(this.category, 10),
     this.brand,
     this.stock,
   ];

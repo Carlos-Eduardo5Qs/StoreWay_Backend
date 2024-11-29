@@ -9,11 +9,12 @@ describe('createProductController', () => {
 
   beforeEach(() => {
     req = {
+      params: { id: "mocked-id" },
       body: {
         name: 'Product Name',
         description: 'Product Description',
         price: 100,
-        category: 'Electronics',
+        category_id: '1',
         brand: 'BrandX',
         stock: 10
       },

@@ -18,6 +18,11 @@ CREATE TABLE user_profile (
   config_2FA ENUM('yes', 'no') DEFAULT 'no'
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
+CREATE TABLE categories (
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
 CREATE TABLE products (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   name VARCHAR(60) NOT NULL,
@@ -26,9 +31,10 @@ CREATE TABLE products (
   image_filename VARCHAR(255),
   description TEXT NOT NULL,
   price DECIMAL(10, 2) NOT NULL,
-  category VARCHAR(300) NOT NULL,
+  category_id INT NOT NULL,
   brand VARCHAR(50) NOT NULL,
-  stock INT NOT NULL
+  stock INT NOT NULL,
+  FOREIGN KEY (category_id) REFERENCES categories(id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE avaliation (

@@ -1,3 +1,5 @@
+/* eslint-disable radix */
+/* eslint-disable camelcase */
 require('dotenv').config();
 
 const B2 = require('backblaze-b2');
@@ -5,13 +7,13 @@ const B2 = require('backblaze-b2');
 const CheckProduct = require('../../models/products/SearchProductModel');
 const UpdatedProductModel = require('../../models/products/UpdateProductModel');
 
-function UpdateProduct(id, name, image, description, price, category, brand, stock) {
+function UpdateProduct(id, name, image, description, price, category_id, brand, stock) {
   this.id = id;
   this.name = name;
   this.image = image;
   this.description = description;
   this.price = price;
-  this.category = category;
+  this.category = category_id;
   this.brand = brand;
   this.stock = stock;
 
@@ -62,14 +64,14 @@ UpdateProduct.prototype.updateProduct = async function () {
 UpdateProduct.prototype.isProductUpdated = function (currentProduct) {
   const nameImageOne = this.image?.originalname || '';
   const nameImageTwo = currentProduct.image_filename ? currentProduct.image_filename.split('/').pop() : '';
+
   return (
     this.name.trim() !== currentProduct.name.trim()
     || nameImageOne.trim() !== nameImageTwo.trim()
     || this.description.trim() !== currentProduct.description.trim()
     || parseFloat(this.price) !== parseFloat(currentProduct.price)
-    || this.category.trim() !== currentProduct.category.trim()
+    || parseInt(this.category, 10) !== parseInt(currentProduct.category_id, 10)
     || this.brand.trim() !== currentProduct.brand.trim()
-    // eslint-disable-next-line radix
     || parseInt(this.stock) !== parseInt(currentProduct.stock)
   );
 };

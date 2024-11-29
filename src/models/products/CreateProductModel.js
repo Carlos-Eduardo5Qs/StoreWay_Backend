@@ -11,7 +11,7 @@ RegisterProduct.prototype = Object.create(Database.prototype);
 RegisterProduct.prototype.register = async function () {
   const connection = await this.openConnection();
   try {
-    const sql = 'INSERT INTO products (name, image, image_id, image_filename, description, price, category, brand, stock) VALUES(?,?,?,?,?,?,?,?,?)';
+    const sql = 'INSERT INTO products (name, image, image_id, image_filename, description, price, category_id, brand, stock) VALUES(?,?,?,?,?,?,?,?,?)';
     const [result] = await connection.execute(sql, this.product);
     if (result.affectedRows > 0) {
       return true;

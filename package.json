@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "eslint .",
     "test": "jest --passWithNoTests --detectOpenHandles",
-    "dev": "nodemon /server.js localhost 3000",
-    "start:dev": "nodemon server.js localhost 3000| pino-pretty"
+    "start": "NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=development nodemon /server.js localhost 3000"
   },
   "author": "Eduardo",
   "license": "MIT",

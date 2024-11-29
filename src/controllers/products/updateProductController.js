@@ -1,16 +1,19 @@
+/* eslint-disable camelcase */
 const UpdateProduct = require('../../services/products/UpdateProductService');
 
 exports.update = async (req, res) => {
   const {
-    id, name, description, price, category, brand, stock,
+    name, description, price, category_id, brand, stock,
   } = req.body;
 
-  if (!name || !req.file || !description || !price || !category || !brand || !stock) {
+  const { id } = req.params;
+
+  if (!id || !name || !req.file || !description || !price || !category_id || !brand || !stock) {
     return res.status(400).json({ data: { message: 'All fields mandatory.' } });
   }
 
   try {
-    const updateProduct = new UpdateProduct(id, name, req.file, description, price, category, brand, stock);
+    const updateProduct = new UpdateProduct(id, name, req.file, description, price, category_id, brand, stock);
     const result = await updateProduct.updateProduct();
 
     if (!result) return res.status(404).json({ data: { message: 'Product not found' } });

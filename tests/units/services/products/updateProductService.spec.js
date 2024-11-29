@@ -15,7 +15,7 @@ describe('UpdateProduct Service', () => {
         image: { originalName: 'product.jpg', buffer: Buffer.from('image data') },
         description: 'Product description',
         price: '100.00',
-        category: 'Category',
+        category_id: '1',
         brand: 'Brand',
         stock: 10,
     };
@@ -36,7 +36,7 @@ describe('UpdateProduct Service', () => {
             mockProductData.image,
             mockProductData.description,
             mockProductData.price,
-            mockProductData.category,
+            mockProductData.category_id,
             mockProductData.brand,
             mockProductData.stock,
         );
@@ -124,18 +124,22 @@ describe('UpdateProduct Service', () => {
     });
 
     it('should return false if all product properties are the same', () => {
+        // Dados de entrada para um produto que não mudou
         const currentProduct = {
-            name: mockProductData.name,
-            image_filename: mockProductData.image.originalname,
-            description: mockProductData.description,
-            price: mockProductData.price,
-            category: mockProductData.category,
-            brand: mockProductData.brand,
-            stock: mockProductData.stock,
+          name: mockProductData.name,
+          image_filename: mockProductData.image.originalname,
+          description: mockProductData.description,
+          price: mockProductData.price,
+          category_id: mockProductData.category,
+          brand: mockProductData.brand,
+          stock: mockProductData.stock,
         };
+      
+        // Espera-se que a comparação retorne false, pois todos os valores são iguais
         const result = updateProduct.isProductUpdated(currentProduct);
+      
         expect(result).toBe(false);
-    });
+      });
 
     it('should return updated image info when successful', async () => {
         updateProduct.searchProduct = jest.fn().mockResolvedValue({ image_filename: 'old-image.jpg' });

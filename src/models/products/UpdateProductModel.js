@@ -10,7 +10,7 @@ UpdateProduct.prototype = Object.create(Database.prototype);
 UpdateProduct.prototype.update = async function () {
   const connection = await this.openConnection();
   try {
-    const sql = 'UPDATE products SET name = ?, image = ?, image_id = ?, image_filename = ?, description = ?, price = ?, category = ?, brand = ?, stock = ? WHERE id = ?';
+    const sql = 'UPDATE products SET name = ?, image = ?, image_id = ?, image_filename = ?, description = ?, price = ?, category_id = ?, brand = ?, stock = ? WHERE id = ?';
     const [result] = await connection.execute(sql, this.product);
 
     if (result.affectedRows > 0) {

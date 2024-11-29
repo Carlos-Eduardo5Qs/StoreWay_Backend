@@ -9,12 +9,13 @@ describe('updateProductController', () => {
 
     beforeEach(() => {
         req = {
+            params: {id: 1},
             body: {
                 id: 1,
                 name: 'New Product Name',
                 description: 'New description',
                 price: 100,
-                category: 'Electronics',
+                category_id: '1',
                 brand: 'BrandName',
                 stock: 50,
             },

@@ -31,7 +31,7 @@ describe('CreateProductsModel', () => {
 
         expect(mockConnection.execute).toHaveBeenCalledTimes(1);
         expect(mockConnection.execute).toHaveBeenCalledWith(
-            'INSERT INTO products (name, image, image_id, image_filename, description, price, category, brand, stock) VALUES(?,?,?,?,?,?,?,?,?)',
+            'INSERT INTO products (name, image, image_id, image_filename, description, price, category_id, brand, stock) VALUES(?,?,?,?,?,?,?,?,?)',
             productData
         );
 
