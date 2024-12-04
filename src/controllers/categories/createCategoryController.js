@@ -1,3 +1,4 @@
+const CheckCategoryExists = require('../../models/categories/CheckCategoryExistsModel');
 const CreateCategoryModel = require('../../models/categories/CreateCategoryModel');
 
 exports.create = async (req, res) => {
@@ -6,6 +7,11 @@ exports.create = async (req, res) => {
   if (!name) return res.status(400).json({ data: { message: 'Name field is mandatory.' } });
 
   try {
+    const checkCategoryExists = new CheckCategoryExists(name);
+    const checkingIfCategoryExists = await checkCategoryExists.check();
+
+    if (checkingIfCategoryExists) return res.status(409).json({ data: { message: 'Category already exists' } });
+
     const createCategoryModel = new CreateCategoryModel(name);
     const result = await createCategoryModel.create();
 
