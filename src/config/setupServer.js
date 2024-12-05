@@ -14,6 +14,7 @@ const addPhotoToAssessmentRoute = require('../routes/productsAssessments/addPhot
 const updateAssessmentRoute = require('../routes/productsAssessments/updateAssessmentsRoute');
 const createCategoryRoute = require('../routes/categories/createCategoryRoute');
 const updateCategoryRoute = require('../routes/categories/updateCategoryRoute');
+const deleteCategoryRoute = require('../routes/categories/deleteCategoryRoute');
 
 const app = express();
 
@@ -34,5 +35,6 @@ app.use(addPhotoToAssessmentRoute);
 app.use(updateAssessmentRoute);
 app.use(createCategoryRoute);
 app.use(updateCategoryRoute);
+app.use(deleteCategoryRoute);
 
 module.exports = app;
