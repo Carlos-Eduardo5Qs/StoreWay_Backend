@@ -9,7 +9,9 @@ exports.emailVerification = async (req, res) => {
     const emailVerification = new EmailVerificationService(token);
     const isVerified = await emailVerification.verify();
 
-    if (!isVerified.isValid) return res.status(401).json({ data: { message: isVerified.error } });
+    if (!isVerified.tokenIsValid) return res.status(401).json({ data: { message: isVerified.error } });
+
+    if (!isVerified.payload) return res.status(401).json({ data: { message: 'Invalid token payload!' } });
 
     if (isVerified.accountActive) return res.status(200).json({ data: { message: 'Account already verified!' } });
 

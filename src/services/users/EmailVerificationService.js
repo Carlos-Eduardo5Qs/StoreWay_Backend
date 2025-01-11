@@ -7,9 +7,9 @@ const FindUser = require('../../models/users/FindUserModel');
 
 function EmailVerification(token) {
   this.token = token;
-  this.tokenValidationResult = {
+  this.results = {
     error: null,
-    isValid: false,
+    tokenIsValid: false,
     payload: null,
     accountActive: false,
   };
@@ -19,26 +19,38 @@ function EmailVerification(token) {
 EmailVerification.prototype.verify = async function () {
   this.tokenValidation(this.token);
 
-  if (!this.tokenValidationResult.isValid) return this.tokenValidationResult;
+  if (!this.results.tokenIsValid) return this.results;
 
   const statusAccount = await this.isActive();
 
-  if (statusAccount === 1) {
-    this.tokenValidationResult.accountActive = true;
-    return this.tokenValidationResult;
+  if (this.results.error) {
+    return this.results;
   }
 
-  const emailVerificationModel = new EmailVerificationModel(true, this.tokenValidationResult.payload);
+  if (statusAccount === 1) {
+    this.results.accountActive = true;
+    return this.results;
+  }
+
+  const emailVerificationModel = new EmailVerificationModel(true, this.results.payload);
   await emailVerificationModel.update();
 
-  return this.tokenValidationResult;
+  return this.results;
 };
 
 EmailVerification.prototype.isActive = async function () {
-  if (this.tokenValidationResult.payload === null) return false;
+  if (!this.results.payload) {
+    this.results.error = 'Invalid token payload!';
+    return false;
+  }
 
-  const findUser = new FindUser(this.tokenValidationResult.payload.userId);
+  const findUser = new FindUser(this.results.payload.userId);
   const user = await findUser.find();
+
+  if (!user) {
+    this.results.error = 'User not found!';
+    return false;
+  }
 
   return user.is_active;
 };
@@ -46,13 +58,13 @@ EmailVerification.prototype.isActive = async function () {
 EmailVerification.prototype.tokenValidation = function () {
   try {
     const decoded = jwt.verify(this.token, process.env.SECRET_KEY);
-    this.tokenValidationResult.isValid = true;
-    this.tokenValidationResult.payload = decoded;
+    this.results.tokenIsValid = true;
+    this.results.payload = decoded;
   } catch (error) {
-    this.tokenValidationResult.error = 'Invalid or expired token!';
+    this.results.error = 'Invalid or expired token!';
   }
 
-  return this.tokenValidationResult;
+  return this.results;
 };
 
 module.exports = EmailVerification;

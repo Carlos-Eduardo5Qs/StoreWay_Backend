@@ -87,7 +87,7 @@ CreateAccount.prototype.registerAccount = function () {
         <title>Boas Vindas</title>
       </head>
       <body>
-        <p>Saudações, ${this.name},</p>
+        <p>Olá, ${this.name},</p>
         <p>É um prazer recebê-lo(a) como nosso cliente. Esperamos que tenha uma experiência incrível com os nossos serviços e produtos.</p>
         
         <p>Para validar o seu email, clique <a href="${this.generateValidationLink()}">aqui</a>.</p>
