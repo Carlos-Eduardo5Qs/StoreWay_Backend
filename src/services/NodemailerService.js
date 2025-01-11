@@ -12,7 +12,7 @@ function Nodemailer(name, email, subject, body) {
     from: process.env.MAIL_FROM,
     to: this.to,
     subject: this.subject,
-    text: this.body,
+    html: this.body,
   };
 
   this.init();

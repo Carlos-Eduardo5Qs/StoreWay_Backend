@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const createAccountRoute = require('../routes/users/createAccountRoute');
+const emailVerificationRoute = require('../routes/users/emailVerificationRoute');
 const loginRoute = require('../routes/users/authRoute');
 const renewTokenRoute = require('../routes/auth/renewTokenRoute');
 const createProductRoute = require('../routes/products/createProductRoute');
@@ -36,5 +37,6 @@ app.use(updateAssessmentRoute);
 app.use(createCategoryRoute);
 app.use(updateCategoryRoute);
 app.use(deleteCategoryRoute);
+app.use(emailVerificationRoute);
 
 module.exports = app;

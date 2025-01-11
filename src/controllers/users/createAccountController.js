@@ -14,7 +14,7 @@ exports.createAccount = async (req, res) => {
     const searchUser = new SearchUser(email);
     const user = await searchUser.find();
 
-    if (user) return res.status(409).json({ data: { message: 'User already exists.' } });
+    if (user) return res.status(409).json({ data: { message: 'The email provided is already associated with an existing account.' } });
 
     const createAccount = new CreateAccount(name, email, password, confirmPassword);
 
