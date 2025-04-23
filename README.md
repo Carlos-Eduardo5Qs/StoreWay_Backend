@@ -1,4 +1,10 @@
-# Visão Geral
+# 🛑 Projeto Arquivado
+> Este repositório foi arquivado em abril de 2025.
+Foi meu principal projeto pessoal por mais de um ano, onde me aprofundei em backend com Node.js, estruturação de APIs, autenticação e organização de sistemas.
+Apesar de não ter sido finalizado, foi uma jornada de muito aprendizado técnico e emocional.
+Hoje, sigo para novos projetos com mais foco, leveza e aprendizado em mente. 🙏
+
+## Visão Geral
 
 Aqui você encontrará informações detalhadas sobre como configurar, usar e contribuir para este projeto backend. Navegue pelas seções abaixo para aprender mais:
 
